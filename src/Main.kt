@@ -1,43 +1,16 @@
 fun main() {
-    val foldablePhone = FoldablePhone()
+    val winningBid = Bid(5000, "Private Collector")
 
-    foldablePhone.switchOn()
-    foldablePhone.checkPhoneScreenLight()
-
-    foldablePhone.unfold()
-    foldablePhone.switchOn()
-    foldablePhone.checkPhoneScreenLight()
+    println("Item A is sold at ${auctionPrice(winningBid, 2000)}.")
+    println("Item B is sold at ${auctionPrice(null, 3000)}.")
 }
 
-open class Phone(var isScreenLightOn: Boolean = false) {
-    open fun switchOn() {
-        isScreenLightOn = true
-    }
+class Bid(val amount: Int, val bidder: String)
 
-    fun switchOff() {
-        isScreenLightOn = false
-    }
-
-    fun checkPhoneScreenLight() {
-        val phoneScreenLight = if (isScreenLightOn) "on" else "off"
-        println("The phone screen's light is $phoneScreenLight.")
+fun auctionPrice(bid: Bid?, minimumPrice: Int): Int {
+    if (bid != null) {
+        return bid.amount
+    } else {
+        return minimumPrice
     }
 }
-
-class FoldablePhone(var isFolded: Boolean = true, isScreenLightOn: Boolean = false) : Phone(isScreenLightOn) {
-
-    override fun switchOn() {
-        if (!isFolded) {
-            isScreenLightOn = true
-        }
-    }
-
-    fun fold() {
-        isFolded = true
-    }
-
-    fun unfold() {
-        isFolded = false
-    }
-}
-
